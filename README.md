@@ -1,6 +1,3 @@
-Here's the `README.md` file for your project:
-
-```markdown
 # Stellar-Soroban-Boilerplate
 
 This repository contains a simple Soroban smart contract that functions as a key-value store, along with a React frontend that interacts with the contract using the Stellar-SDK.
@@ -115,6 +112,3 @@ There is a remove functionality implemented in the smart contract. To add this f
 ## License
 
 This project is licensed under the MIT License.
-```
-
-This `README.md` provides instructions for compiling and deploying the Soroban smart contract and starting the React app. Adjust the paths and commands based on the actual structure of your repository.
