@@ -1,70 +1,120 @@
-# Getting Started with Create React App
+Here's the `README.md` file for your project:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```markdown
+# Stellar-Soroban-Boilerplate
 
-## Available Scripts
+This repository contains a simple Soroban smart contract that functions as a key-value store, along with a React frontend that interacts with the contract using the Stellar-SDK.
 
-In the project directory, you can run:
+## Overview
 
-### `npm start`
+### Smart Contract
+The Soroban smart contract allows you to:
+- **Set a key-value pair**
+- **Get the value of a specific key**
+- **Remove a key-value pair**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### React App
+The React application allows users to:
+- Set key-value pairs in the Soroban smart contract.
+- Retrieve values by key from the Soroban smart contract.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Prerequisites
 
-### `npm test`
+Before getting started, ensure you have the following installed:
+- **Rust and cargo**: For compiling and deploying the Soroban contract.
+- **Node.js and npm**: For running the React application.
+- **Soroban CLI**: For interacting with the Soroban network.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+### 1. Cloning the Repository
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+git clone https://github.com/jamesbachini/Stellar-Soroban-Boilerplate.git
+cd Stellar-Soroban-Boilerplate
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 2. Compiling and Deploying the Soroban Smart Contract
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Make sure you have the Soroban CLI set up to interact with the Soroban testnet.
 
-### `npm run eject`
+#### Compile the Contract
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Run the following command to compile the Soroban smart contract:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+cd contract
+cargo build --target wasm32-unknown-unknown --release
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+This will generate a `.wasm` file in the `target/wasm32-unknown-unknown/release/` directory.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### Deploy the Contract
 
-## Learn More
+To deploy the contract on Soroban's testnet, use the Soroban CLI:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+soroban contract deploy \
+  --wasm target/wasm32-unknown-unknown/release/YOUR_CONTRACT_NAME.wasm \
+  --network soroban-testnet
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+After deploying, you'll get a contract ID that is required in the React app to interact with the contract.
 
-### Code Splitting
+### 3. Running the React Application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### Install Dependencies
 
-### Analyzing the Bundle Size
+From the root of the project (or inside the `client/` directory if split), install the React app's dependencies:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+npm install
+```
 
-### Making a Progressive Web App
+#### Configure the Contract ID
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+In the `App.js` file, replace the `contractId` with the one you obtained after deploying the contract:
 
-### Advanced Configuration
+```js
+const contractId = 'YOUR_DEPLOYED_CONTRACT_ID';
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### Start the React App
 
-### Deployment
+To start the development server, run:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+npm start
+```
 
-### `npm run build` fails to minify
+The app will be available at `http://localhost:3000`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Usage
+
+### Setting a Key-Value Pair
+
+1. In the **Set Key-Value Pair** section, enter the key and value you want to store.
+2. Click the **Set** button.
+3. The transaction will be processed and the key-value pair will be stored in the Soroban contract.
+
+### Getting a Value by Key
+
+1. In the **Get Value by Key** section, enter the key for which you want to retrieve the value.
+2. Click the **Get** button.
+3. If the key exists, the value will be displayed.
+
+### Removing a Key-Value Pair
+
+There is a remove functionality implemented in the smart contract. To add this feature to the UI, you can extend the React app to call the `remove` method.
+
+## Acknowledgements
+
+- [Soroban](https://soroban.stellar.org/) – Smart contract platform built by Stellar.
+- [Stellar SDK](https://github.com/stellar/js-stellar-sdk) – JavaScript SDK for interacting with the Stellar network.
+
+## License
+
+This project is licensed under the MIT License.
+```
+
+This `README.md` provides instructions for compiling and deploying the Soroban smart contract and starting the React app. Adjust the paths and commands based on the actual structure of your repository.
